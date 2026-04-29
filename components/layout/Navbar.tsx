@@ -1,0 +1,90 @@
+'use client';
+
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { FaUser, FaShoppingCart, FaBars, FaTimes } from 'react-icons/fa';
+import { Badge } from '@mui/material';
+import './Navbar.css';
+
+export const Navbar: React.FC = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const cartCount = 3;
+
+  const menuItems = [
+    { label: 'Home', href: '/' },
+    { label: 'Mega Menu', href: '#' },
+    { label: 'Full Screen Menu', href: '#' },
+    { label: 'Pages', href: '#' },
+    { label: 'User Account', href: '#' },
+    { label: 'Vendor Account', href: '#' },
+  ];
+
+  return (
+    <nav className="navbar">
+      <div className="container navbar-container">
+        {/* Logo */}
+        <Link href="/" className="navbar-logo">
+          <div className="logo-badge">M</div>
+          <span className="logo-text">Bazaar</span>
+        </Link>
+
+        {/* Desktop Menu Items */}
+        <div className="navbar-menu">
+          {menuItems.map((item) => (
+            <Link key={item.label} href={item.href} className="menu-item">
+              {item.label}
+            </Link>
+          ))}
+        </div>
+
+        {/* Right Side Icons */}
+        <div className="navbar-icons">
+          {/* Profile Icon */}
+          <button
+            aria-label="User profile"
+            className="icon-btn"
+            title="User profile"
+          >
+            <FaUser />
+          </button>
+
+          {/* Cart Icon with Badge */}
+          <button
+            aria-label={`Shopping cart with ${cartCount} items`}
+            className="icon-btn"
+            title="Shopping cart"
+          >
+            <Badge badgeContent={cartCount} color="error">
+              <FaShoppingCart />
+            </Badge>
+          </button>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            className={`mobile-menu-btn ${isMobileMenuOpen ? 'active' : ''}`}
+          >
+            {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
+        {menuItems.map((item) => (
+          <Link
+            key={item.label}
+            href={item.href}
+            className="mobile-menu-item"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            {item.label}
+          </Link>
+        ))}
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;

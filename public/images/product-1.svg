@@ -1,0 +1,28 @@
+<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="300" height="300" fill="#f8fafc"/>
+  
+  <!-- Headphones left cup -->
+  <circle cx="80" cy="100" r="35" fill="#1f2937"/>
+  <circle cx="80" cy="100" r="28" fill="#374151"/>
+  
+  <!-- Headphones right cup -->
+  <circle cx="220" cy="100" r="35" fill="#1f2937"/>
+  <circle cx="220" cy="100" r="28" fill="#374151"/>
+  
+  <!-- Headband top -->
+  <path d="M 110 70 Q 150 40 190 70" stroke="#1f2937" stroke-width="12" fill="none" stroke-linecap="round"/>
+  
+  <!-- Headband bottom part -->
+  <path d="M 115 75 Q 150 50 185 75" stroke="#374151" stroke-width="8" fill="none" stroke-linecap="round"/>
+  
+  <!-- Left connector -->
+  <path d="M 95 125 Q 100 160 110 180" stroke="#1f2937" stroke-width="8" fill="none" stroke-linecap="round"/>
+  
+  <!-- Right connector -->
+  <path d="M 205 125 Q 200 160 190 180" stroke="#1f2937" stroke-width="8" fill="none" stroke-linecap="round"/>
+  
+  <!-- Highlights on cups -->
+  <ellipse cx="75" cy="95" rx="10" ry="15" fill="white" opacity="0.3"/>
+  <ellipse cx="215" cy="95" rx="10" ry="15" fill="white" opacity="0.3"/>
+</svg>

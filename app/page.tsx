@@ -1,65 +1,109 @@
-import Image from "next/image";
+import { TopBar } from '@/components/layout/TopBar';
+import { Navbar } from '@/components/layout/Navbar';
+import { SearchBar } from '@/components/home/SearchBar';
+import { HeroCarousel } from '@/components/home/HeroCarousel';
+import { FlashDeals } from '@/components/home/FlashDeals';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaEnvelope, FaPhone } from 'react-icons/fa';
+import './page.css';
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="page-wrapper">
+      {/* Top Bar */}
+      <TopBar />
+
+      {/* Navbar */}
+      <Navbar />
+
+      {/* Search Bar */}
+      <SearchBar />
+
+      {/* Hero Carousel */}
+      <HeroCarousel />
+
+      {/* Flash Deals Section */}
+      <FlashDeals />
+
+      {/* Additional Sections Placeholder */}
+      <section className="coming-soon-section">
+        <div className="container">
+          <h2 className="coming-soon-title">More Sections Coming Soon</h2>
+          <p className="coming-soon-subtitle">Categories, Featured Collections, and more...</p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Footer */}
+      <footer className="footer">
+        <div className="container">
+          <div className="footer-grid">
+            <div className="footer-column">
+              <h3 className="footer-heading">About</h3>
+              <ul className="footer-list">
+                <li><a href="#" className="footer-link">About Us</a></li>
+                <li><a href="#" className="footer-link">Careers</a></li>
+                <li><a href="#" className="footer-link">Press</a></li>
+              </ul>
+            </div>
+            <div className="footer-column">
+              <h3 className="footer-heading">Support</h3>
+              <ul className="footer-list">
+                <li><a href="#" className="footer-link">Help Center</a></li>
+                <li><a href="#" className="footer-link">Contact Us</a></li>
+                <li><a href="#" className="footer-link">FAQs</a></li>
+              </ul>
+            </div>
+            <div className="footer-column">
+              <h3 className="footer-heading">Legal</h3>
+              <ul className="footer-list">
+                <li><a href="#" className="footer-link">Privacy</a></li>
+                <li><a href="#" className="footer-link">Terms</a></li>
+                <li><a href="#" className="footer-link">Cookies</a></li>
+              </ul>
+            </div>
+            <div className="footer-column footer-contact-column">
+              <h3 className="footer-heading">Contact & Follow</h3>
+              <div className="footer-contact-info">
+                <div className="contact-item">
+                  <FaPhone className="contact-icon" />
+                  <a href="tel:+1234567890" className="contact-link">+1 (234) 567-890</a>
+                </div>
+                <div className="contact-item">
+                  <FaEnvelope className="contact-icon" />
+                  <a href="mailto:hello@bazaar.com" className="contact-link">hello@bazaar.com</a>
+                </div>
+              </div>
+              <div className="footer-social-icons">
+                <a href="#" className="social-icon facebook" title="Facebook" aria-label="Follow on Facebook">
+                  <FaFacebook />
+                </a>
+                <a href="#" className="social-icon twitter" title="Twitter" aria-label="Follow on Twitter">
+                  <FaTwitter />
+                </a>
+                <a href="#" className="social-icon instagram" title="Instagram" aria-label="Follow on Instagram">
+                  <FaInstagram />
+                </a>
+                <a href="#" className="social-icon linkedin" title="LinkedIn" aria-label="Follow on LinkedIn">
+                  <FaLinkedin />
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="footer-divider"></div>
+          <div className="footer-column">
+              <h3 className="footer-heading">Newsletter</h3>
+              <p className="footer-newsletter-text">Subscribe for exclusive offers and updates</p>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="footer-input"
+              />
+            </div>
+            <div className="footer-divider"></div>
+          <div className="footer-bottom">
+            <p>&copy; 2026 Bazaar eCommerce. All rights reserved.</p>
+          </div>
         </div>
-      </main>
+      </footer>
     </div>
   );
 }

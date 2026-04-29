@@ -1,0 +1,23 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="400" height="400" fill="#f8fafc"/>
+  
+  <!-- Backpack body -->
+  <rect x="100" y="80" width="200" height="240" rx="20" fill="#6366f1" opacity="0.8"/>
+  
+  <!-- Backpack top -->
+  <ellipse cx="200" cy="80" rx="100" ry="30" fill="#4f46e5"/>
+  
+  <!-- Straps -->
+  <rect x="130" y="40" width="20" height="100" rx="10" fill="#4f46e5"/>
+  <rect x="250" y="40" width="20" height="100" rx="10" fill="#4f46e5"/>
+  
+  <!-- Pocket -->
+  <rect x="125" y="150" width="150" height="80" rx="10" fill="#818cf8" opacity="0.6"/>
+  
+  <!-- Zipper -->
+  <path d="M 200 150 L 200 230" stroke="#4f46e5" stroke-width="3" fill="none"/>
+  
+  <!-- Highlights -->
+  <ellipse cx="160" cy="120" rx="30" ry="40" fill="white" opacity="0.2"/>
+</svg>

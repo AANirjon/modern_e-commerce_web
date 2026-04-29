@@ -1,0 +1,27 @@
+<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="300" height="300" fill="#f8fafc"/>
+  
+  <!-- Earbud left (Beige) -->
+  <ellipse cx="90" cy="120" rx="25" ry="40" fill="#d4a574"/>
+  <ellipse cx="90" cy="130" rx="20" ry="30" fill="#e8c5a2"/>
+  
+  <!-- Earbud right (Beige) -->
+  <ellipse cx="210" cy="120" rx="25" ry="40" fill="#d4a574"/>
+  <ellipse cx="210" cy="130" rx="20" ry="30" fill="#e8c5a2"/>
+  
+  <!-- Case bottom (Beige) -->
+  <rect x="85" y="200" width="130" height="60" rx="15" fill="#f5e6d3"/>
+  
+  <!-- Case lid (Beige) -->
+  <rect x="85" y="190" width="130" height="15" rx="5" fill="#ede9de"/>
+  
+  <!-- Charging spots -->
+  <circle cx="100" cy="230" r="4" fill="#c9b8a3"/>
+  <circle cx="150" cy="230" r="4" fill="#c9b8a3"/>
+  <circle cx="200" cy="230" r="4" fill="#c9b8a3"/>
+  
+  <!-- Highlights -->
+  <ellipse cx="85" cy="110" rx="8" ry="12" fill="white" opacity="0.3"/>
+  <ellipse cx="205" cy="110" rx="8" ry="12" fill="white" opacity="0.3"/>
+</svg>
