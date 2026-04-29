@@ -1,66 +1,159 @@
 /* Flash Deals Styles */
 .flash-deals {
     padding: var(--spacing-3xl) 0;
-    background-color: white;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.02) 0%, rgba(99, 102, 241, 0.02) 100%);
+    position: relative;
 }
 
 /* Header */
 .flash-deals-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: var(--spacing-lg);
-    margin-bottom: var(--spacing-2xl);
+    justify-content: center;
+    gap: var(--spacing-2xl);
+    margin-bottom: var(--spacing-3xl);
     flex-direction: column;
 }
 
 @media (min-width: 768px) {
     .flash-deals-header {
-        flex-direction: row;
+        flex-direction: column;
     }
 }
 
 .flash-deals-title-section {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-md);
+    align-items: center;
+    text-align: center;
+    flex: 1;
 }
 
-.flash-deals-title {
-    font-size: 32px;
+/* Badge */
+.flash-deals-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    width: fit-content;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    color: white;
+    border-radius: 50px;
+    font-size: 12px;
     font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    animation: badgePulse 2s ease-in-out infinite;
+}
+
+.badge-icon {
+    font-size: 14px;
+    animation: fireFlame 1.5s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+
+    0%,
+    100% {
+        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 6px 25px rgba(255, 107, 107, 0.5);
+    }
+}
+
+@keyframes fireFlame {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+/* Title */
+.flash-deals-title {
+    font-size: 36px;
+    font-weight: 800;
     color: var(--primary-dark);
     margin: 0;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
 }
 
 @media (min-width: 768px) {
     .flash-deals-title {
-        font-size: 36px;
+        font-size: 44px;
     }
 }
 
+@media (min-width: 1024px) {
+    .flash-deals-title {
+        font-size: 48px;
+    }
+}
+
+.title-gradient {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
+}
+
+/* Subtitle */
 .flash-deals-subtitle {
-    font-size: var(--font-size-sm);
+    font-size: 16px;
     color: var(--text-muted);
     margin: 0;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+@media (min-width: 768px) {
+    .flash-deals-subtitle {
+        font-size: 17px;
+    }
 }
 
 /* View All Button */
 .view-all-btn {
-    padding: var(--spacing-md) var(--spacing-2xl);
-    background-color: var(--accent-blue);
+    padding: 12px 32px;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
     color: white;
     border: none;
-    border-radius: var(--radius-lg);
-    font-weight: 600;
-    font-size: var(--font-size-sm);
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 15px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     white-space: nowrap;
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+    will-change: transform, box-shadow;
 }
 
 .view-all-btn:hover {
-    background-color: var(--accent-blue-dark);
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    box-shadow: 0 12px 30px rgba(59, 130, 246, 0.4);
+    transform: translateY(-2px);
+}
+
+.view-all-btn:active {
+    transform: translateY(0);
+}
+
+/* Bottom View All Button */
+.view-all-btn-bottom {
+    display: block;
+    margin: var(--spacing-3xl) auto 0;
+    padding: 14px 40px;
+    font-size: 16px;
 }
 
 /* Carousel */
@@ -71,11 +164,20 @@
     gap: var(--spacing-lg);
 }
 
-@media (min-width: 768px) {
-    .carousel-wrapper {
-        grid-template-columns: auto 1fr auto;
-        align-items: center;
-    }
+.carousel-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    z-index: 15;
+    padding: 0 var(--spacing-lg);
+    pointer-events: none;
 }
 
 .scroll-container {
@@ -108,20 +210,25 @@
 
 /* Scroll Buttons */
 .scroll-btn {
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    background-color: var(--accent-blue);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: white;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     cursor: pointer;
     font-size: var(--font-size-base);
-    transition: background-color 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     flex-shrink: 0;
     z-index: 10;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+    will-change: transform, box-shadow;
+    pointer-events: auto;
 }
 
 @media (min-width: 768px) {
@@ -130,27 +237,34 @@
     }
 }
 
-.scroll-btn:hover {
-    background-color: var(--accent-blue-dark);
+.scroll-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+    transform: scale(1.1);
+}
+
+.scroll-btn:active:not(:disabled) {
+    transform: scale(0.95);
 }
 
 .scroll-btn:disabled {
-    opacity: 0.5;
+    opacity: 0.3;
     cursor: not-allowed;
 }
 
-.scroll-btn-left {
-    justify-self: start;
-}
-
+.scroll-btn-left,
 .scroll-btn-right {
-    justify-self: end;
+    flex-shrink: 0;
 }
 
 /* Product Item */
 .product-item {
     min-width: 200px;
     flex-shrink: 0;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @media (min-width: 640px) {
@@ -169,4 +283,8 @@
     .product-item {
         min-width: 260px;
     }
+}
+
+.product-item:hover {
+    transform: translateY(-8px);
 }

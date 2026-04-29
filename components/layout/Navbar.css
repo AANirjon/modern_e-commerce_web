@@ -20,33 +20,36 @@
     display: flex;
     align-items: center;
     gap: var(--spacing-sm);
-    font-weight: 700;
-    font-size: var(--font-size-2xl);
-    color: var(--primary-dark);
+    font-weight: 800;
+    font-size: 20px;
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
     flex-shrink: 0;
+    letter-spacing: -0.5px;
 }
 
 .navbar-logo:hover {
-    color: var(--accent-blue);
+    transform: scale(1.05);
+    filter: brightness(1.1);
 }
 
 .logo-badge {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-blue-light) 100%);
-    border-radius: var(--radius-lg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: 700;
-    font-size: var(--font-size-xl);
+    display: none;
 }
 
 .logo-text {
-    display: none;
+    display: inline;
+    font-size: 20px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    white-space: nowrap;
 }
 
 .navbar-menu {
@@ -185,7 +188,11 @@
 
     .logo-text {
         display: inline;
-        font-size: var(--font-size-2xl);
+        font-size: 24px;
+    }
+
+    .navbar-menu {
+        display: flex;
     }
 
     .mobile-menu-btn {
@@ -200,10 +207,6 @@
 @media (min-width: 1024px) {
     .navbar-container {
         height: 80px;
-    }
-
-    .navbar-menu {
-        display: flex;
     }
 
     .logo-badge {

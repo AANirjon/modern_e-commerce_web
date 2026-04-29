@@ -24,7 +24,7 @@ export const HeroCarousel: React.FC = () => {
       id: 1,
       title: '50% Off For Your First Shopping',
       subtitle: 'Get Free Shipping on all orders over $99.00',
-      backgroundImageUrl: '/images/hero-backpack.svg',
+      backgroundImageUrl: 'https://i.ibb.co.com/VsVbgwS/product-1.jpg',
       backgroundImage: 'linear-gradient(135deg, rgba(102, 126, 234, 0.85) 0%, rgba(118, 75, 162, 0.85) 100%)',
       cta: 'Shop Now',
     },
@@ -32,7 +32,7 @@ export const HeroCarousel: React.FC = () => {
       id: 2,
       title: 'Premium Quality Products',
       subtitle: 'Discover our exclusive collection with amazing deals',
-      backgroundImageUrl: '/images/product-1.svg',
+      backgroundImageUrl: 'https://i.ibb.co.com/kgktJNtn/product-2.jpg',
       backgroundImage: 'linear-gradient(135deg, rgba(240, 147, 251, 0.85) 0%, rgba(245, 87, 108, 0.85) 100%)',
       cta: 'Explore',
     },
@@ -40,7 +40,7 @@ export const HeroCarousel: React.FC = () => {
       id: 3,
       title: 'Free Shipping Worldwide',
       subtitle: 'On all orders over $99. No hidden charges',
-      backgroundImageUrl: '/images/product-2.svg',
+      backgroundImageUrl: 'https://i.ibb.co.com/DP19cBtc/product-3.jpg',
       backgroundImage: 'linear-gradient(135deg, rgba(79, 172, 254, 0.85) 0%, rgba(0, 242, 254, 0.85) 100%)',
       cta: 'Get Started',
     },
@@ -80,33 +80,36 @@ export const HeroCarousel: React.FC = () => {
     enter: (dir: number) => ({
       x: dir > 0 ? 1000 : -1000,
       opacity: 0,
+      scale: 0.95,
     }),
     center: {
       zIndex: 1,
       x: 0,
       opacity: 1,
+      scale: 1,
     },
     exit: (dir: number) => ({
       zIndex: 0,
       x: dir > 0 ? -1000 : 1000,
       opacity: 0,
+      scale: 0.95,
     }),
   };
 
   const contentVariants = {
     enter: () => ({
-      y: 40,
+      y: 50,
       opacity: 0,
     }),
     center: {
       y: 0,
       opacity: 1,
-      transition: { delay: 0.2, duration: 0.6 },
+      transition: { delay: 0.3, duration: 0.7 },
     },
     exit: {
-      y: -40,
+      y: -50,
       opacity: 0,
-      transition: { duration: 0.3 },
+      transition: { duration: 0.4 },
     },
   };
 
@@ -126,7 +129,7 @@ export const HeroCarousel: React.FC = () => {
           initial="enter"
           animate="center"
           exit="exit"
-          transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
+          transition={{ duration: 0.8, ease: 'easeInOut' }}
           className="hero-slide"
           style={{
             background: `${slide.backgroundImage}, url('${slide.backgroundImageUrl}') center/cover no-repeat`,
@@ -153,27 +156,27 @@ export const HeroCarousel: React.FC = () => {
               <div className="hero-content-inner">
                 <motion.h1
                   className="hero-title"
-                  initial={{ y: 20, opacity: 0 }}
+                  initial={{ y: 30, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.3, duration: 0.6 }}
+                  transition={{ delay: 0.35, duration: 0.7 }}
                 >
                   {slide.title}
                 </motion.h1>
 
                 <motion.p
                   className="hero-subtitle"
-                  initial={{ y: 20, opacity: 0 }}
+                  initial={{ y: 30, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.4, duration: 0.6 }}
+                  transition={{ delay: 0.45, duration: 0.7 }}
                 >
                   {slide.subtitle}
                 </motion.p>
 
                 <motion.button
                   className="hero-cta-button"
-                  initial={{ y: 20, opacity: 0 }}
+                  initial={{ y: 30, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.5, duration: 0.6 }}
+                  transition={{ delay: 0.55, duration: 0.7 }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >

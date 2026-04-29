@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaChevronLeft, FaChevronRight, FaFire } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 import ProductCard from '../ui/ProductCard';
 import './FlashDeals.css';
 
@@ -116,24 +117,45 @@ export const FlashDeals: React.FC = () => {
       <div className="container">
         {/* Header */}
         <div className="flash-deals-header">
-          <div className="flash-deals-title-section">
-            <h2 className="flash-deals-title">Flash Deals</h2>
-            <p className="flash-deals-subtitle">Limited time offers. Great savings!</p>
-          </div>
-          <button className="view-all-btn">View All</button>
+          <motion.div
+            className="flash-deals-title-section"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <div className="flash-deals-badge">
+              <FaFire className="badge-icon" />
+              <span>Limited Time</span>
+            </div>
+            <h2 className="flash-deals-title">
+              <span className="title-gradient">Flash Deals</span>
+            </h2>
+            <p className="flash-deals-subtitle">Incredible savings on premium products</p>
+          </motion.div>
         </div>
 
         {/* Products Carousel */}
         <div className="carousel-wrapper">
-          {canScrollLeft && (
+          {/* Navigation Controls */}
+          <div className="carousel-controls">
             <button
               onClick={() => scroll('left')}
               aria-label="Scroll left"
               className="scroll-btn scroll-btn-left"
+              disabled={!canScrollLeft}
             >
               <FaChevronLeft />
             </button>
-          )}
+            <button
+              onClick={() => scroll('right')}
+              aria-label="Scroll right"
+              className="scroll-btn scroll-btn-right"
+              disabled={!canScrollRight}
+            >
+              <FaChevronRight />
+            </button>
+          </div>
 
           <div className="scroll-container" ref={scrollContainerRef}>
             {products.map((product) => (
@@ -142,17 +164,16 @@ export const FlashDeals: React.FC = () => {
               </div>
             ))}
           </div>
-
-          {canScrollRight && (
-            <button
-              onClick={() => scroll('right')}
-              aria-label="Scroll right"
-              className="scroll-btn scroll-btn-right"
-            >
-              <FaChevronRight />
-            </button>
-          )}
         </div>
+
+        {/* View All Button */}
+        <motion.button
+          className="view-all-btn view-all-btn-bottom"
+          whileHover={{ scale: 1.05, boxShadow: '0 10px 30px rgba(59, 130, 246, 0.3)' }}
+          whileTap={{ scale: 0.95 }}
+        >
+          View All
+        </motion.button>
       </div>
     </section>
   );
