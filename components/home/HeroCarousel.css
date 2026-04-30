@@ -22,6 +22,94 @@
     }
 }
 
+/* Animated Background Orbs - Luxury Premium Effect */
+.hero-carousel-orbs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.hero-carousel-orbs .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    will-change: transform;
+    opacity: 0.6;
+}
+
+/* Orb 1 - Large Gold */
+.hero-carousel-orbs .orb-1 {
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle at 30% 30%, #fbbf24, #d97706);
+    top: -50px;
+    left: 10%;
+    animation: float1 12s ease-in-out infinite;
+    box-shadow: 0 0 80px rgba(251, 191, 36, 0.3);
+}
+
+/* Orb 2 - Medium Blue */
+.hero-carousel-orbs .orb-2 {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle at 30% 30%, #60a5fa, #3b82f6);
+    top: 20%;
+    right: 15%;
+    animation: float2 14s ease-in-out infinite;
+    box-shadow: 0 0 60px rgba(59, 130, 246, 0.25);
+}
+
+/* Orb 3 - Small Purple */
+.hero-carousel-orbs .orb-3 {
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle at 30% 30%, #a78bfa, #7c3aed);
+    bottom: 10%;
+    left: 20%;
+    animation: float3 16s ease-in-out infinite;
+    box-shadow: 0 0 50px rgba(124, 58, 237, 0.2);
+}
+
+/* Orb 4 - Large Cyan */
+.hero-carousel-orbs .orb-4 {
+    width: 260px;
+    height: 260px;
+    background: radial-gradient(circle at 30% 30%, #06b6d4, #0891b2);
+    top: 30%;
+    left: -80px;
+    animation: float4 18s ease-in-out infinite;
+    box-shadow: 0 0 70px rgba(6, 182, 212, 0.2);
+    opacity: 0.5;
+}
+
+/* Orb 5 - Medium Rose */
+.hero-carousel-orbs .orb-5 {
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle at 30% 30%, #f472b6, #ec4899);
+    bottom: 20%;
+    right: 10%;
+    animation: float5 15s ease-in-out infinite;
+    box-shadow: 0 0 60px rgba(236, 72, 153, 0.2);
+    opacity: 0.55;
+}
+
+/* Orb 6 - Small Amber */
+.hero-carousel-orbs .orb-6 {
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle at 30% 30%, #fcd34d, #f59e0b);
+    top: 50%;
+    right: 30%;
+    animation: float6 13s ease-in-out infinite;
+    box-shadow: 0 0 40px rgba(245, 158, 11, 0.2);
+}
+
 /* Hero Slide */
 .hero-slide {
     position: absolute;
@@ -41,13 +129,15 @@
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     transform: translateZ(0);
+    z-index: 1;
+    background: transparent !important;
 }
 
 /* Overlay for text readability */
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.25);
+    background: transparent;
     z-index: 1;
 }
 
@@ -55,18 +145,14 @@
 .hero-gradient-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg,
-            rgba(0, 0, 0, 0.3) 0%,
-            transparent 40%,
-            transparent 60%,
-            rgba(0, 0, 0, 0.2) 100%);
-    z-index: 2;
+    background: transparent;
+    z-index: 1;
 }
 
 /* Centered content wrapper */
 .hero-content-center {
     position: relative;
-    z-index: 3;
+    z-index: 10;
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
@@ -258,4 +344,95 @@
     border-color: white;
     box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
     transform: scale(1.3);
+}
+
+/* Apple-Level Smooth Animations for Orbs */
+@keyframes float1 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    25% {
+        transform: translate(30px, -40px);
+    }
+    50% {
+        transform: translate(-20px, 30px);
+    }
+    75% {
+        transform: translate(40px, 10px);
+    }
+}
+
+@keyframes float2 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    25% {
+        transform: translate(-35px, 25px);
+    }
+    50% {
+        transform: translate(25px, -35px);
+    }
+    75% {
+        transform: translate(-15px, -20px);
+    }
+}
+
+@keyframes float3 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    25% {
+        transform: translate(40px, 20px);
+    }
+    50% {
+        transform: translate(-30px, -25px);
+    }
+    75% {
+        transform: translate(15px, 35px);
+    }
+}
+
+@keyframes float4 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    25% {
+        transform: translate(45px, -30px);
+    }
+    50% {
+        transform: translate(-25px, 40px);
+    }
+    75% {
+        transform: translate(30px, -15px);
+    }
+}
+
+@keyframes float5 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    25% {
+        transform: translate(-40px, -25px);
+    }
+    50% {
+        transform: translate(35px, 30px);
+    }
+    75% {
+        transform: translate(-20px, 20px);
+    }
+}
+
+@keyframes float6 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    25% {
+        transform: translate(35px, 35px);
+    }
+    50% {
+        transform: translate(-30px, -20px);
+    }
+    75% {
+        transform: translate(25px, 25px);
+    }
 }

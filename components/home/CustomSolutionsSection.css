@@ -1,0 +1,124 @@
+.custom-solutions-section {
+    padding: 3rem 0;
+}
+
+@media (min-width: 768px) {
+    .custom-solutions-section {
+        padding: 4rem 0;
+    }
+}
+
+@media (min-width: 1024px) {
+    .custom-solutions-section {
+        padding: 5rem 0;
+    }
+}
+
+.custom-solutions-container {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+@media (min-width: 768px) {
+    .custom-solutions-container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .custom-solutions-container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+.custom-solutions-title {
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    text-align: center;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    animation: fadeInSlideUp 0.8s ease-out;
+}
+
+@media (min-width: 768px) {
+    .custom-solutions-title {
+        font-size: 44px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .custom-solutions-title {
+        font-size: 48px;
+    }
+}
+
+.title-gradient {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
+}
+
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.custom-solutions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.custom-solutions-large-card {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.custom-solutions-right-grid {
+    display: grid;
+    grid-column: span 1;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.custom-solutions-right-grid>div:nth-child(3),
+.custom-solutions-right-grid>div:nth-child(4) {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .custom-solutions-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+
+    .custom-solutions-large-card {
+        grid-column: span 1;
+        grid-row: span 2;
+    }
+
+    .custom-solutions-right-grid {
+        grid-column: span 2;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .custom-solutions-right-grid>div:nth-child(3),
+    .custom-solutions-right-grid>div:nth-child(4) {
+        display: block;
+    }
+}

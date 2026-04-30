@@ -121,6 +121,16 @@ export const HeroCarousel: React.FC = () => {
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
+      {/* Animated Background Orbs */}
+      <div className="hero-carousel-orbs">
+        <div className="orb orb-1"></div>
+        <div className="orb orb-2"></div>
+        <div className="orb orb-3"></div>
+        <div className="orb orb-4"></div>
+        <div className="orb orb-5"></div>
+        <div className="orb orb-6"></div>
+      </div>
+
       <AnimatePresence initial={false} custom={direction} mode="wait">
         <motion.div
           key={currentSlide}
@@ -132,8 +142,8 @@ export const HeroCarousel: React.FC = () => {
           transition={{ duration: 0.8, ease: 'easeInOut' }}
           className="hero-slide"
           style={{
-            background: `${slide.backgroundImage}, url('${slide.backgroundImageUrl}') center/cover no-repeat`,
-            backgroundBlendMode: 'overlay',
+            background: slide.backgroundImage,
+            backgroundBlendMode: 'normal',
           }}
         >
           {/* Dark overlay for readability */}

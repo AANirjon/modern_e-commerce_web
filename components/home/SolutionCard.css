@@ -1,0 +1,101 @@
+.solution-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+    cursor: pointer;
+    height: 100%;
+    transition: all 0.3s ease-in-out;
+}
+
+.solution-card-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.solution-card-container.large {
+    min-height: 400px;
+}
+
+.solution-card-container.small {
+    height: 180px;
+}
+
+@media (min-width: 768px) {
+    .solution-card-container.small {
+        height: 200px;
+    }
+}
+
+.solution-card-image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease-in-out;
+}
+
+.solution-card:hover .solution-card-image {
+    transform: scale(1.05);
+}
+
+.solution-card-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(to top,
+            rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.2),
+            transparent);
+}
+
+.solution-card-title {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    z-index: 10;
+}
+
+.solution-card-title h3 {
+    color: white;
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.solution-card-button {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 20;
+}
+
+.solution-card-button button {
+    width: 32px;
+    height: 32px;
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.solution-card-button button:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transform: scale(1.1);
+}
+
+.solution-card-button button:active {
+    transform: scale(0.95);
+}
+
+.solution-card-button svg {
+    color: black;
+    font-size: 1.125rem;
+}

@@ -5,6 +5,7 @@ import { HeroCarousel } from '@/components/home/HeroCarousel';
 import { FlashDeals } from '@/components/home/FlashDeals';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaEnvelope, FaPhone } from 'react-icons/fa';
 import './page.css';
+import CustomSolutionsSection from '@/components/home/CustomSolutionsSection';
 
 export default function Home() {
   return (
@@ -23,6 +24,9 @@ export default function Home() {
 
       {/* Flash Deals Section */}
       <FlashDeals />
+
+      {/* Custom Solutions Section */}
+      <CustomSolutionsSection />
 
       {/* Additional Sections Placeholder */}
       <section className="coming-soon-section">
