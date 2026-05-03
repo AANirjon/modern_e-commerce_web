@@ -103,6 +103,14 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
+      {/* Backdrop Overlay */}
+      {isMobileMenuOpen && (
+        <div
+          className="menu-backdrop"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
       {/* Mobile Menu */}
       <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
         {menuItems.map((item) => (
