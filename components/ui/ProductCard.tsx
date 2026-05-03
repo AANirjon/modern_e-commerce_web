@@ -17,7 +17,7 @@ interface ProductCardProps {
   discount?: number;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({
+function ProductCard({
   id,
   image,
   category,
@@ -27,7 +27,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   rating,
   reviews,
   discount,
-}) => {
+}: ProductCardProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -83,6 +83,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       </div>
     </div>
   );
-};
+}
 
 export default ProductCard;

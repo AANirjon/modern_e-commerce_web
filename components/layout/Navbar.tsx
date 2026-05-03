@@ -2,17 +2,26 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { FaUser, FaShoppingCart, FaBars, FaTimes } from 'react-icons/fa';
+import { FaUser, FaShoppingCart, FaBars, FaTimes, FaChevronDown } from 'react-icons/fa';
 import { Badge } from '@mui/material';
 import './Navbar.css';
 
 export const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
   const cartCount = 3;
+
+  const categories = [
+    'Electronics',
+    'Fashion',
+    'Home & Garden',
+    'Sports',
+    'Books',
+  ];
 
   const menuItems = [
     { label: 'Home', href: '/' },
-    { label: 'Products', href: '#' },
+    { label: 'Products', href: '/products' },
     { label: 'About', href: '#' },
     { label: 'Contact', href: '#' },
     { label: 'User Account', href: '#' },
@@ -33,6 +42,32 @@ export const Navbar: React.FC = () => {
               {item.label}
             </Link>
           ))}
+
+          {/* Categories Dropdown */}
+          <div
+            className="category-dropdown"
+            onMouseEnter={() => setIsCategoryDropdownOpen(true)}
+            onMouseLeave={() => setIsCategoryDropdownOpen(false)}
+          >
+            <button className="menu-item category-toggle">
+              Categories
+              <FaChevronDown className={`dropdown-icon ${isCategoryDropdownOpen ? 'open' : ''}`} />
+            </button>
+
+            {isCategoryDropdownOpen && (
+              <div className="dropdown-menu">
+                {categories.map((category) => (
+                  <Link
+                    key={category}
+                    href={`/products/${encodeURIComponent(category)}`}
+                    className="dropdown-item"
+                  >
+                    {category}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Right Side Icons */}
