@@ -130,7 +130,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
                                     { label: '$25 - $50', min: 25, max: 50 },
                                     { label: '$50 - $100', min: 50, max: 100 },
                                     { label: '$100 - $150', min: 100, max: 150 },
-                                    { label: 'Over $150', min: 150, max: 999 },
+                                    { label: 'Over $150', min: 150, max: 100000 },
                                 ].map((range) => (
                                     <label key={range.label} className="filter-checkbox">
                                         <input

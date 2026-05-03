@@ -4,83 +4,74 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaChevronLeft, FaChevronRight, FaFire } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import { supabase } from '@/lib/supabase';
 import ProductCard from '../ui/ProductCard';
 import './FlashDeals.css';
+
+interface FlashProduct {
+  id: string;
+  image_url: string;
+  category: string;
+  name: string;
+  price: number;
+  discount: number;
+  rating: number;
+  reviews: number;
+}
 
 export const FlashDeals: React.FC = () => {
   const router = useRouter();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [products, setProducts] = useState<FlashProduct[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const products = [
-    {
-      id: 1,
-      image: '/images/product-1.svg',
-      category: 'Electronics',
-      name: 'Premium Wireless Headphones',
-      price: 79.99,
-      originalPrice: 129.99,
-      rating: 4.8,
-      reviews: 245,
-      discount: 38,
-    },
-    {
-      id: 2,
-      image: '/images/product-2.svg',
-      category: 'Electronics',
-      name: 'Compact Earbuds Pro',
-      price: 59.99,
-      originalPrice: 99.99,
-      rating: 4.6,
-      reviews: 189,
-      discount: 40,
-    },
-    {
-      id: 3,
-      image: '/images/product-3.svg',
-      category: 'Electronics',
-      name: 'Smart Speaker Plus',
-      price: 89.99,
-      originalPrice: 149.99,
-      rating: 4.7,
-      reviews: 312,
-      discount: 40,
-    },
-    {
-      id: 4,
-      image: '/images/product-4.svg',
-      category: 'Electronics',
-      name: 'Wireless Charging Pad',
-      price: 34.99,
-      originalPrice: 59.99,
-      rating: 4.5,
-      reviews: 156,
-      discount: 42,
-    },
-    {
-      id: 5,
-      image: '/images/product-1.svg',
-      category: 'Electronics',
-      name: 'Noise Cancelling Earbuds',
-      price: 74.99,
-      originalPrice: 119.99,
-      rating: 4.9,
-      reviews: 423,
-      discount: 38,
-    },
-    {
-      id: 6,
-      image: '/images/product-2.svg',
-      category: 'Electronics',
-      name: 'Portable Speaker Lite',
-      price: 44.99,
-      originalPrice: 79.99,
-      rating: 4.4,
-      reviews: 267,
-      discount: 44,
-    },
-  ];
+  // Fetch flash deals products
+  useEffect(() => {
+    const fetchFlashDeals = async () => {
+      try {
+        setLoading(true);
+        const { data, error } = await supabase
+          .from('flash_deals')
+          .select(`
+            id,
+            discount_percentage,
+            products(id, name, price, discount, rating, reviews, image_url, category)
+          `)
+          .eq('is_active', true)
+          .limit(6);
+
+        if (error) throw error;
+
+        // Transform the data to match ProductCard props
+        const deals = data as unknown as Array<{
+          products?: { id: string; name: string; price: number; rating: number; reviews: number; image_url: string; category: string };
+          discount_percentage?: number;
+        }>;
+
+        const transformedProducts: FlashProduct[] = deals?.map((deal) => ({
+          id: deal.products?.id || '',
+          name: deal.products?.name || '',
+          price: (deal.products?.price || 0) * (1 - (deal.discount_percentage || 0) / 100),
+          rating: deal.products?.rating || 0,
+          reviews: deal.products?.reviews || 0,
+          image_url: deal.products?.image_url || '',
+          category: deal.products?.category || '',
+          discount: deal.discount_percentage || 0,
+        })) || [];
+
+        setProducts(transformedProducts);
+      } catch (error) {
+        console.error('Error fetching flash deals:', error);
+        setProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFlashDeals();
+  }, []);
 
   const checkScroll = () => {
     if (scrollContainerRef.current) {
@@ -160,11 +151,30 @@ export const FlashDeals: React.FC = () => {
           </div>
 
           <div className="scroll-container" ref={scrollContainerRef}>
-            {products.map((product) => (
-              <div key={product.id} className="product-item">
-                <ProductCard {...product} />
+            {loading ? (
+              <div style={{ textAlign: 'center', padding: '40px', width: '100%' }}>
+                <p>Loading flash deals...</p>
               </div>
-            ))}
+            ) : products.length > 0 ? (
+              products.map((product) => (
+                <div key={product.id} className="product-item">
+                  <ProductCard
+                    id={product.id}
+                    image={product.image_url || '/placeholder.svg'}
+                    category={product.category}
+                    name={product.name}
+                    price={product.price}
+                    rating={product.rating}
+                    reviews={product.reviews}
+                    discount={product.discount}
+                  />
+                </div>
+              ))
+            ) : (
+              <div style={{ textAlign: 'center', padding: '40px', width: '100%' }}>
+                <p>No active flash deals at the moment</p>
+              </div>
+            )}
           </div>
         </div>
 

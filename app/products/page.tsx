@@ -1,16 +1,31 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { TopBar } from '@/components/layout/TopBar';
 import { Navbar } from '@/components/layout/Navbar';
+import { supabase } from '@/lib/supabase';
 import ProductFilters from '@/components/products/ProductFilters';
 import ProductSortBar from '@/components/products/ProductSortBar';
 import ProductGrid from '@/components/products/ProductGrid';
 import Pagination from '@/components/products/Pagination';
-import { mockProducts, Product } from '@/lib/mockProducts';
 import '../products.css';
 
 const PRODUCTS_PER_PAGE = 12;
+
+interface Product {
+    id: string;
+    name: string;
+    price: number;
+    category: string;
+    discount: number;
+    rating: number;
+    reviews: number;
+    in_stock: boolean;
+    is_flash_deal: boolean;
+    image_url: string;
+    image_path: string;
+    description: string;
+}
 
 interface FilterState {
     category: string;
@@ -20,34 +35,62 @@ interface FilterState {
 }
 
 export default function ProductsPage() {
+    const [allProducts, setAllProducts] = useState<Product[]>([]);
+    const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [sortBy, setSortBy] = useState('relevance');
     const [filters, setFilters] = useState<FilterState>({
         category: '',
-        priceRange: [0, 999],
+        priceRange: [0, 100000],
         rating: 0,
         inStock: false,
     });
     const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
     const [mobileSortOpen, setMobileSortOpen] = useState(false);
 
+    // Fetch products from database
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                setLoading(true);
+                const { data, error } = await supabase
+                    .from('products')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+                setAllProducts(data || []);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+                setAllProducts([]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProducts();
+    }, []);
+
     // Get unique categories
-    const categories = Array.from(new Set(mockProducts.map((p) => p.category)));
+    const categories = useMemo(() =>
+        Array.from(new Set(allProducts.map((p) => p.category).filter(Boolean))),
+        [allProducts]
+    );
 
     // Filter products
     const filteredProducts = useMemo(() => {
-        return mockProducts.filter((product) => {
+        return allProducts.filter((product) => {
             const categoryMatch =
                 !filters.category || product.category === filters.category;
             const priceMatch =
                 product.price >= filters.priceRange[0] &&
                 product.price <= filters.priceRange[1];
             const ratingMatch = !filters.rating || product.rating >= filters.rating;
-            const stockMatch = !filters.inStock || product.inStock;
+            const stockMatch = !filters.inStock || product.in_stock;
 
             return categoryMatch && priceMatch && ratingMatch && stockMatch;
         });
-    }, [filters]);
+    }, [filters, allProducts]);
 
     // Sort products
     const sortedProducts = useMemo(() => {
@@ -169,15 +212,23 @@ export default function ProductsPage() {
                             </div>
 
                             {/* Product Grid */}
-                            <ProductGrid products={paginatedProducts} />
+                            {loading ? (
+                                <div style={{ textAlign: 'center', padding: '40px' }}>
+                                    <p>Loading products...</p>
+                                </div>
+                            ) : (
+                                <>
+                                    <ProductGrid products={paginatedProducts} />
 
-                            {/* Pagination */}
-                            {totalPages > 1 && (
-                                <Pagination
-                                    currentPage={currentPage}
-                                    totalPages={totalPages}
-                                    onPageChange={handlePageChange}
-                                />
+                                    {/* Pagination */}
+                                    {totalPages > 1 && (
+                                        <Pagination
+                                            currentPage={currentPage}
+                                            totalPages={totalPages}
+                                            onPageChange={handlePageChange}
+                                        />
+                                    )}
+                                </>
                             )}
                         </section>
                     </div>

@@ -2,8 +2,18 @@
 
 import React from 'react';
 import ProductCard from '../ui/ProductCard';
-import { Product } from '@/lib/mockProducts';
 import './ProductGrid.css';
+
+interface Product {
+    id: string;
+    name: string;
+    price: number;
+    category: string;
+    discount: number;
+    rating: number;
+    reviews: number;
+    image_url: string;
+}
 
 interface ProductGridProps {
     products: Product[];
@@ -28,8 +38,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ products }) => {
                     name={product.name}
                     category={product.category}
                     price={product.price}
-                    originalPrice={product.originalPrice}
-                    image={product.image}
+                    image={product.image_url || '/placeholder.svg'}
                     rating={product.rating}
                     reviews={product.reviews}
                     discount={product.discount}

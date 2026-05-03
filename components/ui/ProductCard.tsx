@@ -6,7 +6,7 @@ import { FaShoppingCart } from 'react-icons/fa';
 import './ProductCard.css';
 
 interface ProductCardProps {
-  id: number;
+  id: string | number;
   image: string;
   category: string;
   name: string;
@@ -18,7 +18,6 @@ interface ProductCardProps {
 }
 
 function ProductCard({
-  id,
   image,
   category,
   name,
@@ -29,14 +28,9 @@ function ProductCard({
   discount,
 }: ProductCardProps) {
   const [isLoading, setIsLoading] = useState(true);
-  const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div
-      className="product-card"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <div className="product-card">
       {/* Image Container */}
       <div className="product-image-container">
         {isLoading && <div className="skeleton"></div>}

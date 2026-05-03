@@ -1,39 +1,43 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { supabase } from '@/lib/supabase';
 import SolutionCard from "./SolutionCard";
 import "./CustomSolutionsSection.css";
 
+interface Solution {
+    id: string;
+    title: string;
+    image_url: string;
+    is_large: boolean;
+    sort_order: number;
+}
+
 const CustomSolutionsSection = () => {
-    const solutions = [
-        {
-            id: "earbuds-large",
-            image: "/images/earbuds-case.jpg",
-            title: "Earbuds",
-            isLarge: true,
-        },
-        {
-            id: "headphones",
-            image: "/images/headphones.jpg",
-            title: "Headphones",
-            isLarge: false,
-        },
-        {
-            id: "turntables",
-            image: "/images/turntables.jpg",
-            title: "Turntables",
-            isLarge: false,
-        },
-        {
-            id: "speakers",
-            image: "/images/speakers.jpg",
-            title: "Speakers",
-            isLarge: false,
-        },
-        {
-            id: "earbuds",
-            image: "/images/earbuds.jpg",
-            title: "Earbuds",
-            isLarge: false,
-        },
-    ];
+    const [solutions, setSolutions] = useState<Solution[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchSections = async () => {
+            try {
+                setLoading(true);
+                const { data, error } = await supabase
+                    .from('explore_sections')
+                    .select('id, title, image_url, is_large, sort_order')
+                    .order('sort_order', { ascending: true });
+
+                if (error) throw error;
+                setSolutions(data || []);
+            } catch (error) {
+                console.error('Error fetching explore sections:', error);
+                setSolutions([]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchSections();
+    }, []);
 
     return (
         <section id="explore-now-section" className="custom-solutions-section">
@@ -44,45 +48,40 @@ const CustomSolutionsSection = () => {
                 </h2>
 
                 {/* Grid Layout */}
-                <div className="custom-solutions-grid">
-                    {/* Large Card - Left */}
-                    <div className="custom-solutions-large-card">
-                        <SolutionCard
-                            image={solutions[0].image}
-                            title={solutions[0].title}
-                            isLarge={true}
-                        />
+                {loading ? (
+                    <div style={{ textAlign: 'center', padding: '40px' }}>
+                        <p>Loading sections...</p>
                     </div>
+                ) : solutions.length > 0 ? (
+                    <div className="custom-solutions-grid">
+                        {/* Large Card - Left */}
+                        {solutions.find(s => s.is_large) && (
+                            <div className="custom-solutions-large-card">
+                                <SolutionCard
+                                    image={solutions.find(s => s.is_large)?.image_url || '/placeholder.svg'}
+                                    title={solutions.find(s => s.is_large)?.title || ''}
+                                    isLarge={true}
+                                />
+                            </div>
+                        )}
 
-                    {/* Right Side - 2x2 Grid */}
-                    <div className="custom-solutions-right-grid">
-                        {/* Card 1 */}
-                        <SolutionCard
-                            image={solutions[1].image}
-                            title={solutions[1].title}
-                            isLarge={false}
-                        />
-                        {/* Card 2 */}
-                        <SolutionCard
-                            image={solutions[2].image}
-                            title={solutions[2].title}
-                            isLarge={false}
-                        />
-
-                        {/* Card 3 - Hidden on small screens */}
-                        <SolutionCard
-                            image={solutions[3].image}
-                            title={solutions[3].title}
-                            isLarge={false}
-                        />
-                        {/* Card 4 - Hidden on small screens */}
-                        <SolutionCard
-                            image={solutions[4].image}
-                            title={solutions[4].title}
-                            isLarge={false}
-                        />
+                        {/* Right Side - 2x2 Grid */}
+                        <div className="custom-solutions-right-grid">
+                            {solutions.filter(s => !s.is_large).slice(0, 4).map((solution) => (
+                                <SolutionCard
+                                    key={solution.id}
+                                    image={solution.image_url || '/placeholder.svg'}
+                                    title={solution.title}
+                                    isLarge={false}
+                                />
+                            ))}
+                        </div>
                     </div>
-                </div>
+                ) : (
+                    <div style={{ textAlign: 'center', padding: '40px' }}>
+                        <p>No sections available</p>
+                    </div>
+                )}
             </div>
         </section>
     );
