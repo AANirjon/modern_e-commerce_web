@@ -28,6 +28,8 @@ export default function ProductsPage() {
         rating: 0,
         inStock: false,
     });
+    const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+    const [mobileSortOpen, setMobileSortOpen] = useState(false);
 
     // Get unique categories
     const categories = Array.from(new Set(mockProducts.map((p) => p.category)));
@@ -86,6 +88,22 @@ export default function ProductsPage() {
         setCurrentPage(1); // Reset to first page when filters change
     };
 
+    // Mobile overlay handlers (mutually exclusive)
+    const handleOpenMobileFilter = () => {
+        setMobileFilterOpen(true);
+        setMobileSortOpen(false);
+    };
+
+    const handleOpenMobileSort = () => {
+        setMobileSortOpen(true);
+        setMobileFilterOpen(false);
+    };
+
+    const handleCloseMobileOverlays = () => {
+        setMobileFilterOpen(false);
+        setMobileSortOpen(false);
+    };
+
     return (
         <div className="products-page">
             <TopBar />
@@ -96,26 +114,59 @@ export default function ProductsPage() {
                     {/* Page Header */}
                     <div className="products-header">
                         <h1>All Products</h1>
-                        <p>Browse our complete collection of products</p>
                     </div>
 
                     {/* Filters and Products */}
                     <div className="products-layout">
-                        {/* Sidebar Filters */}
-                        <ProductFilters
-                            filters={filters}
-                            onFilterChange={handleFilterChange}
-                            categories={categories}
-                        />
+                        {/* Mobile Control Bar */}
+                        <div className="mobile-controls">
+                            <button
+                                className={`control-btn ${mobileFilterOpen ? 'active' : ''}`}
+                                onClick={handleOpenMobileFilter}
+                            >
+                                <span>🔽</span> Filters
+                            </button>
+                            <button
+                                className={`control-btn ${mobileSortOpen ? 'active' : ''}`}
+                                onClick={handleOpenMobileSort}
+                            >
+                                <span>↕️</span> Sort
+                            </button>
+                        </div>
+
+                        {/* Backdrop Overlay for Mobile */}
+                        {(mobileFilterOpen || mobileSortOpen) && (
+                            <div
+                                className="mobile-overlay-backdrop"
+                                onClick={handleCloseMobileOverlays}
+                            />
+                        )}
+
+                        {/* Sidebar Filters - Desktop & Mobile Overlay */}
+                        <div
+                            className={`filters-wrapper ${mobileFilterOpen ? 'mobile-overlay-open' : ''
+                                }`}
+                        >
+                            <ProductFilters
+                                filters={filters}
+                                onFilterChange={handleFilterChange}
+                                categories={categories}
+                            />
+                        </div>
 
                         {/* Main Content */}
                         <section className="products-content">
-                            {/* Sort Bar */}
-                            <ProductSortBar
-                                sortBy={sortBy}
-                                onSortChange={setSortBy}
-                                totalProducts={sortedProducts.length}
-                            />
+                            {/* Sort Bar - Desktop & Mobile Overlay */}
+                            <div
+                                className={`sort-wrapper ${mobileSortOpen ? 'mobile-overlay-open' : ''
+                                    }`}
+                            >
+                                <ProductSortBar
+                                    sortBy={sortBy}
+                                    onSortChange={setSortBy}
+                                    totalProducts={sortedProducts.length}
+                                />
+                            </div>
 
                             {/* Product Grid */}
                             <ProductGrid products={paginatedProducts} />

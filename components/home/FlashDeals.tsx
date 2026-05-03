@@ -1,12 +1,14 @@
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { FaChevronLeft, FaChevronRight, FaFire } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import ProductCard from '../ui/ProductCard';
 import './FlashDeals.css';
 
 export const FlashDeals: React.FC = () => {
+  const router = useRouter();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -169,6 +171,7 @@ export const FlashDeals: React.FC = () => {
         {/* View All Button */}
         <motion.button
           className="view-all-btn view-all-btn-bottom"
+          onClick={() => router.push('/products')}
           whileHover={{ scale: 1.05, boxShadow: '0 10px 30px rgba(59, 130, 246, 0.3)' }}
           whileTap={{ scale: 0.95 }}
         >

@@ -60,28 +60,15 @@
     color: #333;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* Responsive Design - HIDE ON MOBILE ONLY */
+@media screen and (max-width: 769px) {
     .sort-bar {
-        flex-direction: column;
-        gap: 16px;
-        align-items: flex-start;
+        display: none !important;
     }
 
-    .sort-select-wrapper {
-        width: 100%;
-    }
-
-    .sort-select {
-        width: 100%;
-    }
-
-    .sort-label {
-        font-size: 0.9rem;
-    }
-
-    .products-count {
-        font-size: 0.9rem;
+    /* Show sort-bar when in mobile overlay */
+    .mobile-overlay-open .sort-bar {
+        display: flex !important;
     }
 }
 

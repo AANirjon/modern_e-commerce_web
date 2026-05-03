@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import './HeroCarousel.css';
 
@@ -14,6 +15,7 @@ interface HeroSlide {
 }
 
 export const HeroCarousel: React.FC = () => {
+  const router = useRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
@@ -74,6 +76,19 @@ export const HeroCarousel: React.FC = () => {
     setCurrentSlide(index);
     setAutoPlay(false);
     setTimeout(() => setAutoPlay(true), 10000);
+  };
+
+  const handleCtaClick = () => {
+    const slide = slides[currentSlide];
+    if (slide.cta === 'Shop Now') {
+      router.push('/products');
+    } else if (slide.cta === 'Explore') {
+      // Scroll to Explore Now section
+      const exploreSection = document.getElementById('explore-now-section');
+      if (exploreSection) {
+        exploreSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
   };
 
   const slideVariants = {
@@ -184,6 +199,7 @@ export const HeroCarousel: React.FC = () => {
 
                 <motion.button
                   className="hero-cta-button"
+                  onClick={handleCtaClick}
                   initial={{ y: 30, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.55, duration: 0.7 }}

@@ -36,13 +36,13 @@ const CustomSolutionsSection = () => {
     ];
 
     return (
-        <section className="custom-solutions-section">
+        <section id="explore-now-section" className="custom-solutions-section">
             <div className="custom-solutions-container">
                 {/* Section Title */}
                 <h2 className="custom-solutions-title">
                     <span className="title-gradient">Explore Now</span>
                 </h2>
-                
+
                 {/* Grid Layout */}
                 <div className="custom-solutions-grid">
                     {/* Large Card - Left */}
