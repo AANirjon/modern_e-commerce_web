@@ -14,14 +14,14 @@
 }
 
 .products-header {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     text-align: center;
 }
 
 .products-header h1 {
-    font-size: 2.5rem;
+    font-size: 0.8rem;
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: 3px;
     color: #1a1a1a;
 }
 
@@ -59,7 +59,7 @@
 /* Responsive Design */
 @media (max-width: 1024px) {
     .products-header h1 {
-        font-size: 2rem;
+        font-size: 0.9rem;
     }
 
     .products-layout {
@@ -69,6 +69,16 @@
 }
 
 @media (max-width: 768px) {
+    .products-header {
+        margin-bottom: 8px;
+    }
+
+    .products-header h1 {
+        font-size: 0.5rem;
+        line-height: 1;
+        margin-bottom: 3px;
+    }
+
     .products-layout {
         grid-template-columns: 1fr;
         position: relative;

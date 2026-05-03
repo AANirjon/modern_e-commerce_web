@@ -19,7 +19,7 @@ interface FlashProduct {
   reviews: number;
 }
 
-export const FlashDeals: React.FC = () => {
+export const FlashDeals: React.FC<{ category?: string }> = ({ category }) => {
   const router = useRouter();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -50,7 +50,7 @@ export const FlashDeals: React.FC = () => {
           discount_percentage?: number;
         }>;
 
-        const transformedProducts: FlashProduct[] = deals?.map((deal) => ({
+        let transformedProducts: FlashProduct[] = deals?.map((deal) => ({
           id: deal.products?.id || '',
           name: deal.products?.name || '',
           price: (deal.products?.price || 0) * (1 - (deal.discount_percentage || 0) / 100),
@@ -60,6 +60,13 @@ export const FlashDeals: React.FC = () => {
           category: deal.products?.category || '',
           discount: deal.discount_percentage || 0,
         })) || [];
+
+        // Filter by category if provided
+        if (category) {
+          transformedProducts = transformedProducts.filter(
+            (p) => p.category.toLowerCase() === category.toLowerCase()
+          );
+        }
 
         setProducts(transformedProducts);
       } catch (error) {
@@ -71,7 +78,7 @@ export const FlashDeals: React.FC = () => {
     };
 
     fetchFlashDeals();
-  }, []);
+  }, [category]);
 
   const checkScroll = () => {
     if (scrollContainerRef.current) {

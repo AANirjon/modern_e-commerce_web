@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import { TopBar } from '@/components/layout/TopBar';
 import { Navbar } from '@/components/layout/Navbar';
 import { SearchBar } from '@/components/home/SearchBar';
@@ -8,6 +11,8 @@ import './page.css';
 import CustomSolutionsSection from '@/components/home/CustomSolutionsSection';
 
 export default function Home() {
+  const [selectedCategory, setSelectedCategory] = useState('all');
+
   return (
     <div className="page-wrapper">
       {/* Top Bar */}
@@ -17,13 +22,13 @@ export default function Home() {
       <Navbar />
 
       {/* Search Bar */}
-      <SearchBar />
+      <SearchBar onCategoryChange={setSelectedCategory} />
 
       {/* Hero Carousel */}
       <HeroCarousel />
 
       {/* Flash Deals Section */}
-      <FlashDeals />
+      <FlashDeals category={selectedCategory !== 'all' ? selectedCategory : undefined} />
 
       {/* Custom Solutions Section */}
       <CustomSolutionsSection />
@@ -94,15 +99,15 @@ export default function Home() {
           </div>
           <div className="footer-divider"></div>
           <div className="footer-column">
-              <h3 className="footer-heading">Newsletter</h3>
-              <p className="footer-newsletter-text">Subscribe for exclusive offers and updates</p>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="footer-input"
-              />
-            </div>
-            <div className="footer-divider"></div>
+            <h3 className="footer-heading">Newsletter</h3>
+            <p className="footer-newsletter-text">Subscribe for exclusive offers and updates</p>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="footer-input"
+            />
+          </div>
+          <div className="footer-divider"></div>
           <div className="footer-bottom">
             <p>&copy; 2026 Bazaar eCommerce. All rights reserved.</p>
           </div>

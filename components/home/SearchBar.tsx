@@ -1,25 +1,82 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { FaSearch } from 'react-icons/fa';
+import { supabase } from '@/lib/supabase';
 import './SearchBar.css';
 
-export const SearchBar: React.FC = () => {
+interface Category {
+  value: string;
+  label: string;
+}
+
+export const SearchBar: React.FC<{ onCategoryChange?: (category: string) => void }> = ({ onCategoryChange }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
-  const categories = [
-    { value: 'all', label: 'All Categories' },
-    { value: 'electronics', label: 'Electronics' },
-    { value: 'fashion', label: 'Fashion' },
-    { value: 'home', label: 'Home & Garden' },
-    { value: 'sports', label: 'Sports' },
-    { value: 'books', label: 'Books' },
-  ];
+  // Fetch unique categories from database
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('products')
+          .select('category')
+          .eq('in_stock', true);
+
+        if (error) throw error;
+
+        // Get unique categories
+        const uniqueCategories = Array.from(
+          new Map(
+            (data || [])
+              .map((p: { category: string }) => ([
+                p.category,
+                { value: p.category.toLowerCase(), label: p.category }
+              ]))
+          ).values()
+        );
+
+        // Add "All Categories" at the beginning
+        const allCategories: Category[] = [
+          { value: 'all', label: 'All Categories' },
+          ...uniqueCategories
+        ];
+
+        setCategories(allCategories);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+        // Fallback categories
+        setCategories([{ value: 'all', label: 'All Categories' }]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Search:', searchQuery, 'Category:', selectedCategory);
+    if (!searchQuery.trim()) return;
+
+    // Navigate to products page with search query and category
+    const queryParams = new URLSearchParams();
+    queryParams.set('search', searchQuery);
+    if (selectedCategory !== 'all') {
+      queryParams.set('category', selectedCategory);
+    }
+
+    router.push(`/products?${queryParams.toString()}`);
+  };
+
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newCategory = e.target.value;
+    setSelectedCategory(newCategory);
+    onCategoryChange?.(newCategory);
   };
 
   return (
@@ -30,9 +87,10 @@ export const SearchBar: React.FC = () => {
           <div className="search-category">
             <select
               value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
+              onChange={handleCategoryChange}
               aria-label="Select product category"
               className="category-select"
+              disabled={isLoading}
             >
               {categories.map((cat) => (
                 <option key={cat.value} value={cat.value}>

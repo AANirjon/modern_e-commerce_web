@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { TopBar } from '@/components/layout/TopBar';
 import { Navbar } from '@/components/layout/Navbar';
 import { supabase } from '@/lib/supabase';
@@ -35,12 +36,16 @@ interface FilterState {
 }
 
 export default function ProductsPage() {
+    const searchParams = useSearchParams();
+    const searchQuery = searchParams.get('search') || '';
+    const urlCategory = searchParams.get('category') || '';
+
     const [allProducts, setAllProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [sortBy, setSortBy] = useState('relevance');
     const [filters, setFilters] = useState<FilterState>({
-        category: '',
+        category: urlCategory,
         priceRange: [0, 100000],
         rating: 0,
         inStock: false,
@@ -88,9 +93,14 @@ export default function ProductsPage() {
             const ratingMatch = !filters.rating || product.rating >= filters.rating;
             const stockMatch = !filters.inStock || product.in_stock;
 
-            return categoryMatch && priceMatch && ratingMatch && stockMatch;
+            // Search match: search in name and description
+            const searchMatch = !searchQuery ||
+                product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                product.description?.toLowerCase().includes(searchQuery.toLowerCase());
+
+            return categoryMatch && priceMatch && ratingMatch && stockMatch && searchMatch;
         });
-    }, [filters, allProducts]);
+    }, [filters, allProducts, searchQuery]);
 
     // Sort products
     const sortedProducts = useMemo(() => {
@@ -156,7 +166,14 @@ export default function ProductsPage() {
                 <div className="products-container">
                     {/* Page Header */}
                     <div className="products-header">
-                        <h1>All Products</h1>
+                        <h1>
+                            {searchQuery
+                                ? `Search Results for "${searchQuery}"`
+                                : urlCategory
+                                    ? `${urlCategory} Products`
+                                    : 'All Products'
+                            }
+                        </h1>
                     </div>
 
                     {/* Filters and Products */}

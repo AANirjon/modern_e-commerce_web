@@ -28,6 +28,7 @@ function ProductCard({
   discount,
 }: ProductCardProps) {
   const [isLoading, setIsLoading] = useState(true);
+  const [isWishlisted, setIsWishlisted] = useState(false);
 
   return (
     <div className="product-card">
@@ -49,10 +50,13 @@ function ProductCard({
           <div className="discount-badge">{discount}% OFF</div>
         )}
 
-        {/* Add to Cart Button */}
-        <button className="add-to-cart-btn" aria-label={`Add ${name} to cart`}>
-          <FaShoppingCart />
-          <span>Add to Cart</span>
+        {/* Wishlist Button */}
+        <button
+          className={`wishlist-btn ${isWishlisted ? 'liked' : ''}`}
+          onClick={() => setIsWishlisted(!isWishlisted)}
+          aria-label="Add to wishlist"
+        >
+          {isWishlisted ? '♥' : '♡'}
         </button>
       </div>
 
@@ -63,17 +67,24 @@ function ProductCard({
 
         {/* Rating */}
         <div className="product-rating">
-          <span className="stars">★ {rating.toFixed(1)}</span>
-          <span className="reviews">({reviews})</span>
+          <span className="rating-stars">★</span>
+          <span className="rating-value">{rating.toFixed(1)}</span>
+          <span className="rating-count">({reviews} reviews)</span>
         </div>
 
         {/* Price */}
         <div className="product-price">
-          <span className="current-price">${price.toFixed(2)}</span>
+          <span className="price-current">${price.toFixed(2)}</span>
           {originalPrice && (
-            <span className="original-price">${originalPrice.toFixed(2)}</span>
+            <span className="price-original">${originalPrice.toFixed(2)}</span>
           )}
         </div>
+
+        {/* Add to Cart Button */}
+        <button className="add-to-cart-btn" aria-label={`Add ${name} to cart`}>
+          <FaShoppingCart />
+          <span>Add to Cart</span>
+        </button>
       </div>
     </div>
   );
