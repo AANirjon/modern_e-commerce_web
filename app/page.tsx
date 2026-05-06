@@ -34,12 +34,12 @@ export default function Home() {
       <CustomSolutionsSection />
 
       {/* Additional Sections Placeholder */}
-      <section className="coming-soon-section">
+      {/* <section className="coming-soon-section">
         <div className="container">
           <h2 className="coming-soon-title">More Sections Coming Soon</h2>
           <p className="coming-soon-subtitle">Categories, Featured Collections, and more...</p>
         </div>
-      </section>
+      </section> */}
 
       {/* Footer */}
       <footer className="footer">

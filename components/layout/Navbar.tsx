@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { FaUser, FaShoppingCart, FaBars, FaTimes, FaChevronDown } from 'react-icons/fa';
 import { Badge } from '@mui/material';
 import './Navbar.css';
@@ -10,6 +11,7 @@ export const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
   const cartCount = 3;
+  const pathname = usePathname();
 
   const categories = [
     'Electronics',
@@ -38,11 +40,21 @@ export const Navbar: React.FC = () => {
 
         {/* Desktop Menu Items */}
         <div className="navbar-menu">
-          {menuItems.map((item) => (
-            <Link key={item.label} href={item.href} className="menu-item">
-              {item.label}
-            </Link>
-          ))}
+          {menuItems.map((item) => {
+            const isActive =
+              item.href !== '#' &&
+              (pathname === item.href || (item.href === '/products' && pathname.startsWith('/products')));
+
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={`menu-item${isActive ? ' active' : ''}`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
 
           {/* Categories Dropdown */}
           <div
@@ -114,16 +126,22 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Menu */}
       <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
-        {menuItems.map((item) => (
-          <Link
-            key={item.label}
-            href={item.href}
-            className="mobile-menu-item"
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            {item.label}
-          </Link>
-        ))}
+        {menuItems.map((item) => {
+          const isActive =
+            item.href !== '#' &&
+            (pathname === item.href || (item.href === '/products' && pathname.startsWith('/products')));
+
+          return (
+            <Link
+              key={item.label}
+              href={item.href}
+              className={`mobile-menu-item${isActive ? ' active' : ''}`}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              {item.label}
+            </Link>
+          );
+        })}
       </div>
     </nav>
   );
