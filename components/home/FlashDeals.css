@@ -65,6 +65,21 @@
     }
 }
 
+@media (prefers-reduced-motion: reduce), (max-width: 640px) {
+    .flash-deals-badge,
+    .badge-icon,
+    .view-all-btn,
+    .scroll-btn,
+    .product-item {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .product-item:hover {
+        transform: none;
+    }
+}
+
 @keyframes fireFlame {
 
     0%,

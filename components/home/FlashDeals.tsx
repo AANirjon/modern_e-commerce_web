@@ -3,7 +3,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaChevronLeft, FaChevronRight, FaFire } from 'react-icons/fa';
-import { motion } from 'framer-motion';
 import { supabase } from '@/lib/supabase';
 import ProductCard from '../ui/ProductCard';
 import './FlashDeals.css';
@@ -117,13 +116,7 @@ export const FlashDeals: React.FC<{ category?: string }> = ({ category }) => {
       <div className="container">
         {/* Header */}
         <div className="flash-deals-header">
-          <motion.div
-            className="flash-deals-title-section"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
+          <div className="flash-deals-title-section">
             <div className="flash-deals-badge">
               <FaFire className="badge-icon" />
               <span>Limited Time</span>
@@ -132,7 +125,7 @@ export const FlashDeals: React.FC<{ category?: string }> = ({ category }) => {
               <span className="title-gradient">Accessory Deals</span>
             </h2>
             <p className="flash-deals-subtitle">Hot mobile essentials at unbeatable prices</p>
-          </motion.div>
+          </div>
         </div>
 
         {/* Products Carousel */}
@@ -186,14 +179,12 @@ export const FlashDeals: React.FC<{ category?: string }> = ({ category }) => {
         </div>
 
         {/* View All Button */}
-        <motion.button
+        <button
           className="view-all-btn view-all-btn-bottom"
           onClick={() => router.push('/products')}
-          whileHover={{ scale: 1.05, boxShadow: '0 10px 30px rgba(59, 130, 246, 0.3)' }}
-          whileTap={{ scale: 0.95 }}
         >
           View All
-        </motion.button>
+        </button>
       </div>
     </section>
   );

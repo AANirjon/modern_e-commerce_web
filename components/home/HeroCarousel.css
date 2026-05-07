@@ -37,7 +37,7 @@
 .hero-carousel-orbs .orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(25px);
+    filter: blur(18px);
     will-change: transform;
     opacity: 0.85;
 }
@@ -57,6 +57,12 @@
     .hero-carousel-orbs .orb-1 {
         width: 220px;
         height: 220px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-carousel-orbs {
+        display: none;
     }
 }
 
@@ -194,6 +200,13 @@
     }
 }
 
+/* Hero slide track */
+.hero-slides-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
 /* Hero Slide */
 .hero-slide {
     position: absolute;
@@ -203,18 +216,21 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
-    will-change: transform, opacity;
+    will-change: opacity;
     display: flex;
     align-items: center;
     justify-content: center;
-    image-rendering: high-quality;
-    image-rendering: crisp-edges;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     transform: translateZ(0);
+    opacity: 0;
+    transition: opacity 0.55s ease;
     z-index: 1;
-    background: transparent !important;
+}
+
+.hero-slide.active {
+    opacity: 1;
+    z-index: 2;
 }
 
 /* Overlay for text readability */
@@ -554,5 +570,25 @@
 
     75% {
         transform: translate(25px, 25px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce), (max-width: 640px) {
+    .hero-carousel-orbs {
+        display: none;
+    }
+
+    .hero-slide,
+    .hero-cta-button,
+    .carousel-arrow,
+    .carousel-dot {
+        transition: none !important;
+        animation: none !important;
+    }
+
+    .carousel-arrow:hover,
+    .carousel-dot:hover,
+    .hero-cta-button:hover {
+        transform: none !important;
     }
 }

@@ -42,7 +42,7 @@ function ProductCard({
           height={250}
           onLoad={() => setIsLoading(false)}
           className="product-image"
-          priority
+          loading="lazy"
         />
 
         {/* Discount Badge */}
