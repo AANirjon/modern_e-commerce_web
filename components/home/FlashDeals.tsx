@@ -129,9 +129,9 @@ export const FlashDeals: React.FC<{ category?: string }> = ({ category }) => {
               <span>Limited Time</span>
             </div>
             <h2 className="flash-deals-title">
-              <span className="title-gradient">Flash Deals</span>
+              <span className="title-gradient">Accessory Deals</span>
             </h2>
-            <p className="flash-deals-subtitle">Incredible savings on premium products</p>
+            <p className="flash-deals-subtitle">Hot mobile essentials at unbeatable prices</p>
           </motion.div>
         </div>
 

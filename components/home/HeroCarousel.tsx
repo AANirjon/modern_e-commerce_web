@@ -24,27 +24,27 @@ export const HeroCarousel: React.FC = () => {
   const slides: HeroSlide[] = [
     {
       id: 1,
-      title: '50% Off For Your First Shopping',
-      subtitle: 'Get Free Shipping on all orders over $99.00',
+      title: 'Upgrade your mobile lifestyle',
+      subtitle: 'Find premium cases, fast chargers, earbuds and mobile essentials in one curated collection.',
       backgroundImageUrl: 'https://i.ibb.co.com/VsVbgwS/product-1.jpg',
       backgroundImage: 'linear-gradient(135deg, rgba(102, 126, 234, 0.85) 0%, rgba(118, 75, 162, 0.85) 100%)',
-      cta: 'Shop Now',
+      cta: 'Shop Accessories',
     },
     {
       id: 2,
-      title: 'Premium Quality Products',
-      subtitle: 'Discover our exclusive collection with amazing deals',
+      title: 'Designed for modern devices',
+      subtitle: 'Curated mobile accessories that blend style, performance, and protection.',
       backgroundImageUrl: 'https://i.ibb.co.com/kgktJNtn/product-2.jpg',
       backgroundImage: 'linear-gradient(135deg, rgba(240, 147, 251, 0.85) 0%, rgba(245, 87, 108, 0.85) 100%)',
-      cta: 'Explore',
+      cta: 'Browse Collections',
     },
     {
       id: 3,
-      title: 'Free Shipping Worldwide',
-      subtitle: 'On all orders over $99. No hidden charges',
+      title: 'Fast shipping on every order',
+      subtitle: 'Free delivery on mobile accessory purchases over $79.',
       backgroundImageUrl: 'https://i.ibb.co.com/DP19cBtc/product-3.jpg',
       backgroundImage: 'linear-gradient(135deg, rgba(79, 172, 254, 0.85) 0%, rgba(0, 242, 254, 0.85) 100%)',
-      cta: 'Get Started',
+      cta: 'See Deals',
     },
   ];
 
@@ -80,14 +80,8 @@ export const HeroCarousel: React.FC = () => {
 
   const handleCtaClick = () => {
     const slide = slides[currentSlide];
-    if (slide.cta === 'Shop Now') {
+    if (slide.cta.includes('Shop') || slide.cta.includes('Browse') || slide.cta.includes('Deals')) {
       router.push('/products');
-    } else if (slide.cta === 'Explore') {
-      // Scroll to Explore Now section
-      const exploreSection = document.getElementById('explore-now-section');
-      if (exploreSection) {
-        exploreSection.scrollIntoView({ behavior: 'smooth' });
-      }
     }
   };
 

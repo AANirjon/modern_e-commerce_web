@@ -103,7 +103,7 @@ export const SearchBar: React.FC<{ onCategoryChange?: (category: string) => void
           {/* Search Input */}
           <input
             type="text"
-            placeholder="Searching for..."
+            placeholder="Search mobile accessories..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             aria-label="Search products"

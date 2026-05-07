@@ -23,10 +23,10 @@ export const Navbar: React.FC = () => {
 
   const menuItems = [
     { label: 'Home', href: '/' },
-    { label: 'Products', href: '/products' },
-    { label: 'About', href: '#' },
-    { label: 'Contact', href: '#' },
-    { label: 'User Account', href: '#' },
+    { label: 'Shop', href: '/products' },
+    { label: 'About', href: '/about' },
+    { label: 'Contact', href: '/contact' },
+    { label: 'Account', href: '/user-account' },
     { label: 'Admin', href: '/admin' },
   ];
 
@@ -35,7 +35,7 @@ export const Navbar: React.FC = () => {
       <div className="container navbar-container">
         {/* Logo */}
         <Link href="/" className="navbar-logo">
-          <span className="logo-text">Brand Name</span>
+          <span className="logo-text">MobiNest</span>
         </Link>
 
         {/* Desktop Menu Items */}

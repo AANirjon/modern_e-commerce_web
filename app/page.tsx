@@ -48,7 +48,7 @@ export default function Home() {
             <div className="footer-column">
               <h3 className="footer-heading">About</h3>
               <ul className="footer-list">
-                <li><a href="#" className="footer-link">About Us</a></li>
+                <li><a href="/about" className="footer-link">About Us</a></li>
                 <li><a href="#" className="footer-link">Careers</a></li>
                 <li><a href="#" className="footer-link">Press</a></li>
               </ul>
@@ -56,8 +56,8 @@ export default function Home() {
             <div className="footer-column">
               <h3 className="footer-heading">Support</h3>
               <ul className="footer-list">
+                <li><a href="/contact" className="footer-link">Contact Us</a></li>
                 <li><a href="#" className="footer-link">Help Center</a></li>
-                <li><a href="#" className="footer-link">Contact Us</a></li>
                 <li><a href="#" className="footer-link">FAQs</a></li>
               </ul>
             </div>
@@ -78,7 +78,7 @@ export default function Home() {
                 </div>
                 <div className="contact-item">
                   <FaEnvelope className="contact-icon" />
-                  <a href="mailto:hello@bazaar.com" className="contact-link">hello@bazaar.com</a>
+                  <a href="mailto:support@mobinest.com" className="contact-link">support@mobinest.com</a>
                 </div>
               </div>
               <div className="footer-social-icons">
@@ -100,7 +100,7 @@ export default function Home() {
           <div className="footer-divider"></div>
           <div className="footer-column">
             <h3 className="footer-heading">Newsletter</h3>
-            <p className="footer-newsletter-text">Subscribe for exclusive offers and updates</p>
+            <p className="footer-newsletter-text">Subscribe for exclusive mobile accessory drops and offers</p>
             <input
               type="email"
               placeholder="Enter your email"
@@ -109,7 +109,7 @@ export default function Home() {
           </div>
           <div className="footer-divider"></div>
           <div className="footer-bottom">
-            <p>&copy; 2026 Bazaar eCommerce. All rights reserved.</p>
+            <p>&copy; 2026 MobiNest. All rights reserved.</p>
           </div>
         </div>
       </footer>

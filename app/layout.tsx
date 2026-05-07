@@ -9,8 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Modern eCommerce - Shop Now",
-  description: "Discover amazing products with free shipping on orders over $99",
+  title: "MobiNest — Mobile Accessories",
+  description: "Discover premium mobile accessories, sleek cases, fast chargers, and wireless audio.",
 };
 
 export default function RootLayout({

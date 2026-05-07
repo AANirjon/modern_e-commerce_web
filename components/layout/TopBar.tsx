@@ -10,7 +10,7 @@ export const TopBar: React.FC = () => {
                     {/* Left: HOT Badge + Free Shipping */}
                     <div className="top-bar-left">
                         <span className="hot-badge">HOT</span>
-                        <span className="shipping-text">Free Express Shipping on orders over $99</span>
+                        <span className="shipping-text">Free Express Shipping on mobile accessory orders over $99</span>
                     </div>
 
                     {/* Right: Language Selector + Social Icons */}
