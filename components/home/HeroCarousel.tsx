@@ -16,6 +16,8 @@ interface HeroSlide {
 export const HeroCarousel: React.FC = () => {
   const router = useRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [previousSlide, setPreviousSlide] = useState<number | null>(null);
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('right');
   const [autoPlay, setAutoPlay] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
 
@@ -49,26 +51,47 @@ export const HeroCarousel: React.FC = () => {
   useEffect(() => {
     if (!autoPlay || isHovering) return;
     const interval = setInterval(() => {
+      setPreviousSlide(currentSlide);
+      setSlideDirection('right');
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, [autoPlay, isHovering, slides.length]);
+  }, [autoPlay, isHovering, slides.length, currentSlide]);
+
+  const scheduleResetPrevious = () => {
+    setTimeout(() => setPreviousSlide(null), 520);
+  };
 
   const handlePrevSlide = () => {
+    setPreviousSlide(currentSlide);
+    setSlideDirection('left');
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
     setAutoPlay(false);
+    scheduleResetPrevious();
     setTimeout(() => setAutoPlay(true), 10000);
   };
 
   const handleNextSlide = () => {
+    setPreviousSlide(currentSlide);
+    setSlideDirection('right');
     setCurrentSlide((prev) => (prev + 1) % slides.length);
     setAutoPlay(false);
+    scheduleResetPrevious();
     setTimeout(() => setAutoPlay(true), 10000);
   };
 
+  const determineDirection = (targetIndex: number) => {
+    const distance = (targetIndex - currentSlide + slides.length) % slides.length;
+    return distance === 0 || distance <= slides.length / 2 ? 'right' : 'left';
+  };
+
   const goToSlide = (index: number) => {
+    if (index === currentSlide) return;
+    setPreviousSlide(currentSlide);
+    setSlideDirection(determineDirection(index));
     setCurrentSlide(index);
     setAutoPlay(false);
+    scheduleResetPrevious();
     setTimeout(() => setAutoPlay(true), 10000);
   };
 
@@ -96,25 +119,38 @@ export const HeroCarousel: React.FC = () => {
       </div>
 
       <div className="hero-slides-track">
-        {slides.map((slideItem, index) => (
-          <div
-            key={slideItem.id}
-            className={`hero-slide ${index === currentSlide ? 'active' : ''}`}
-            style={{ background: slideItem.backgroundImage }}
-          >
-            <div className="hero-overlay"></div>
-            <div className="hero-gradient-overlay"></div>
-            <div className="hero-content-center">
-              <div className="hero-content-inner">
-                <h1 className="hero-title">{slideItem.title}</h1>
-                <p className="hero-subtitle">{slideItem.subtitle}</p>
-                <button className="hero-cta-button" onClick={handleCtaClick}>
-                  {slideItem.cta}
-                </button>
+        {slides.map((slideItem, index) => {
+          const isActive = index === currentSlide;
+          const isPrevious = index === previousSlide;
+          const classes = [
+            'hero-slide',
+            isActive ? 'active' : '',
+            isActive ? `incoming-${slideDirection}` : '',
+            isPrevious ? `outgoing-${slideDirection}` : '',
+          ]
+            .filter(Boolean)
+            .join(' ');
+
+          return (
+            <div
+              key={slideItem.id}
+              className={classes}
+              style={{ background: slideItem.backgroundImage }}
+            >
+              <div className="hero-overlay"></div>
+              <div className="hero-gradient-overlay"></div>
+              <div className="hero-content-center">
+                <div className="hero-content-inner">
+                  <h1 className="hero-title">{slideItem.title}</h1>
+                  <p className="hero-subtitle">{slideItem.subtitle}</p>
+                  <button className="hero-cta-button" onClick={handleCtaClick}>
+                    {slideItem.cta}
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Navigation Arrows */}

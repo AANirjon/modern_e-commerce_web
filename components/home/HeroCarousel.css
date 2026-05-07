@@ -216,21 +216,90 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    will-change: opacity;
+    will-change: transform, opacity;
     display: flex;
     align-items: center;
     justify-content: center;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    transform: translateZ(0);
+    transform: translateX(0);
     opacity: 0;
-    transition: opacity 0.55s ease;
     z-index: 1;
 }
 
 .hero-slide.active {
     opacity: 1;
     z-index: 2;
+}
+
+.hero-slide.incoming-right {
+    animation: slideInFromRight 0.52s ease-out both;
+    z-index: 3;
+}
+
+.hero-slide.incoming-left {
+    animation: slideInFromLeft 0.52s ease-out both;
+    z-index: 3;
+}
+
+.hero-slide.outgoing-right {
+    animation: slideOutToLeft 0.52s ease-out both;
+    opacity: 1;
+    z-index: 2;
+}
+
+.hero-slide.outgoing-left {
+    animation: slideOutToRight 0.52s ease-out both;
+    opacity: 1;
+    z-index: 2;
+}
+
+@keyframes slideInFromRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutToLeft {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideOutToRight {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
 }
 
 /* Overlay for text readability */
@@ -573,7 +642,7 @@
     }
 }
 
-@media (prefers-reduced-motion: reduce), (max-width: 640px) {
+@media (prefers-reduced-motion: reduce) {
     .hero-carousel-orbs {
         display: none;
     }
@@ -590,5 +659,29 @@
     .carousel-dot:hover,
     .hero-cta-button:hover {
         transform: none !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .hero-carousel-orbs {
+        display: none;
+    }
+
+    .hero-carousel-container {
+        height: 420px;
+    }
+
+    .carousel-arrow {
+        width: 44px;
+        height: 44px;
+        font-size: 22px;
+    }
+
+    .carousel-arrow-prev {
+        left: 12px;
+    }
+
+    .carousel-arrow-next {
+        right: 12px;
     }
 }

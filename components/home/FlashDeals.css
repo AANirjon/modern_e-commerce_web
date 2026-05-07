@@ -65,7 +65,9 @@
     }
 }
 
-@media (prefers-reduced-motion: reduce), (max-width: 640px) {
+@media (prefers-reduced-motion: reduce),
+(max-width: 640px) {
+
     .flash-deals-badge,
     .badge-icon,
     .view-all-btn,
@@ -177,6 +179,11 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--spacing-lg);
+}
+
+.carousel-wrapper::before {
+    content: '';
+    display: none;
 }
 
 .carousel-controls {
@@ -291,6 +298,39 @@
     .product-item {
         min-width: 240px;
         max-width: 240px;
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel-wrapper::before {
+        display: block;
+        position: absolute;
+        inset: 0;
+        margin: 8px;
+        border-radius: 24px;
+        background: radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.36), transparent 28%),
+            radial-gradient(circle at 75% 35%, rgba(236, 72, 153, 0.24), transparent 26%),
+            radial-gradient(circle at 60% 80%, rgba(16, 185, 129, 0.18), transparent 25%);
+        filter: blur(26px);
+        opacity: 0.8;
+        pointer-events: none;
+        z-index: 0;
+        transform: translate3d(0, 0, 0);
+        animation: carouselGlowShift 12s ease-in-out infinite;
+    }
+}
+
+@keyframes carouselGlowShift {
+
+    0%,
+    100% {
+        transform: translate3d(0, 0, 0) scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: translate3d(12px, -10px, 0) scale(1.02);
+        opacity: 0.75;
     }
 }
 
